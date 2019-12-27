@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class TaskForm extends Component {
+
+    onCloseForm = () => {
+        this.props.onCloseForm();
+    }
+
     render() {
         return (
             <div className="panel panel-warning">
@@ -9,7 +14,8 @@ class TaskForm extends Component {
                         Thêm công việc
                         <span
                             className="fa fa-times-circle text-right"
-                        ></span>
+                            onClick={ this.onCloseForm}
+                        />
                     </h3>
                 </div>
                 <div className="panel-body">
