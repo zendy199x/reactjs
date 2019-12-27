@@ -6,7 +6,56 @@ import Control from './components/Control';
 
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasks: []
+        }
+    }
+
+    componentWillMount() {
+        if (localStorage && localStorage.getItem('tasks')) {
+            const tasks =  JSON.parse(localStorage.getItem('tasks'));
+            this.setState({
+                tasks: tasks
+            })
+        }
+    }
+
+    onGenerateData = () => {
+        const tasks = [
+            {
+                id: this.generateID(),
+                name: 'Học React',
+                status: true
+            },
+            {
+                id: this.generateID(),
+                name: 'Học Vue',
+                status: false
+            },
+            {
+                id: this.generateID(),
+                name: 'Học Angualar',
+                status: true
+            }
+        ];
+        this.setState({
+            tasks: tasks
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    s4() {
+        return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
+    }
+
+    generateID() {
+        return this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4();
+    }
+
     render() {
+        const {tasks} = this.state;
         return (
             <div className="container">
                 <div className="text-center">
@@ -22,11 +71,18 @@ class App extends Component {
                             <span className="fa fa-plus mr-5" />
                             Thêm Công Việc
                         </button>
+                        <button
+                            type="button"
+                            className="btn btn-danger ml-5"
+                            onClick={this.onGenerateData}
+                        >
+                            Generate Data
+                        </button>
 
                         {/*Search-Sort*/}
                         <Control />
                         {/*List*/}
-                        <TaskList />
+                        <TaskList tasks={tasks}/>
                     </div>
                 </div>
             </div>
