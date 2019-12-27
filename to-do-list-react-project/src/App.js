@@ -23,30 +23,6 @@ class App extends Component {
         }
     }
 
-    onGenerateData = () => {
-        const tasks = [
-            {
-                id: this.generateID(),
-                name: 'Học React',
-                status: true
-            },
-            {
-                id: this.generateID(),
-                name: 'Học Vue',
-                status: false
-            },
-            {
-                id: this.generateID(),
-                name: 'Học Angualar',
-                status: true
-            }
-        ];
-        this.setState({
-            tasks: tasks
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
     s4() {
         return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
     }
@@ -67,9 +43,19 @@ class App extends Component {
         })
     }
 
+    onSubmit = (data) => {
+        const { tasks } = this.state;
+        data.id = this.generateID();
+        tasks.push(data);
+        this.setState({
+            tasks: tasks
+        })
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
     render() {
         const { tasks, isDisplayForm } = this.state;
-        const elmTaskForm = isDisplayForm ? <TaskForm onCloseForm={this.onCloseForm}/> : '';
+        const elmTaskForm = isDisplayForm ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm}/> : '';
         return (
             <div className="container">
                 <div className="text-center">
@@ -88,13 +74,6 @@ class App extends Component {
                         >
                             <span className="fa fa-plus mr-5" />
                             Thêm Công Việc
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-danger ml-5"
-                            onClick={this.onGenerateData}
-                        >
-                            Generate Data
                         </button>
 
                         {/*Search-Sort*/}
