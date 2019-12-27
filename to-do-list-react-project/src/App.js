@@ -53,6 +53,41 @@ class App extends Component {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
+    onUpdateStatus = (id) => {
+        const { tasks } = this.state;
+        const index = this.findIndex(id);
+        if(index !== -1) {
+            tasks[index].status = !tasks[index].status;
+            this.setState({
+                tasks: tasks
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+        }
+    }
+
+    findIndex = (id) => {
+        const { tasks } = this.state;
+        let result = -1;
+        tasks.forEach((task, index) => {
+            if(task.id === id) {
+                result = index;
+            }
+        })
+        return result;
+    }
+
+    onDelete = (id) => {
+        const { tasks } = this.state;
+        const index = this.findIndex(id);
+        if(index !== -1) {
+            tasks.splice(index, 1);
+            this.setState({
+                tasks: tasks
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+        }
+    }
+
     render() {
         const { tasks, isDisplayForm } = this.state;
         const elmTaskForm = isDisplayForm ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm}/> : '';
@@ -79,7 +114,11 @@ class App extends Component {
                         {/*Search-Sort*/}
                         <Control />
                         {/*List*/}
-                        <TaskList tasks={tasks}/>
+                        <TaskList
+                            tasks={tasks}
+                            onUpdateStatus={this.onUpdateStatus}
+                            onDelete={ this.onDelete }
+                        />
                     </div>
                 </div>
             </div>
