@@ -10,7 +10,8 @@ class App extends Component {
         super(props);
         this.state = {
             tasks: [],
-            isDisplayForm: false
+            isDisplayForm: false.status,
+            taskEditing: null
         }
     }
 
@@ -32,23 +33,43 @@ class App extends Component {
     }
 
     onToggleForm = () => {
-        this.setState({
-            isDisplayForm: !this.state.isDisplayForm
-        })
+        if(this.state.isDisplayForm && this.state.taskEditing !== null) {
+            this.setState({
+                isDisplayForm: true,
+                taskEditing: null
+            })
+        } else {
+            this.setState({
+                isDisplayForm: !this.state.isDisplayForm,
+                taskEditing: null
+            })
+        }
     }
 
     onCloseForm = () => {
         this.setState({
-            isDisplayForm: !this.state.isDisplayForm
+            isDisplayForm: false
+        })
+    }
+
+    onShowForm = () => {
+        this.setState({
+            isDisplayForm: true
         })
     }
 
     onSubmit = (data) => {
         const { tasks } = this.state;
-        data.id = this.generateID();
-        tasks.push(data);
+        if(data.id === '') {
+            data.id = this.generateID();
+            tasks.push(data);
+        } else {
+            const index = this.findIndex(data.id);
+            tasks[index] = data;
+        }
         this.setState({
-            tasks: tasks
+            tasks: tasks,
+            taskEditing: null
         })
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
@@ -86,11 +107,26 @@ class App extends Component {
             });
             localStorage.setItem('tasks', JSON.stringify(tasks))
         }
+        this.onCloseForm();
+    }
+
+    onUpdate = (id) => {
+        const { tasks } = this.state;
+        const index = this.findIndex(id);
+        const taskEditing = tasks[index];
+        this.setState({
+            taskEditing: taskEditing
+        });
+        this.onShowForm();
     }
 
     render() {
-        const { tasks, isDisplayForm } = this.state;
-        const elmTaskForm = isDisplayForm ? <TaskForm onSubmit={this.onSubmit} onCloseForm={this.onCloseForm}/> : '';
+        const { tasks, isDisplayForm, taskEditing } = this.state;
+        const elmTaskForm = isDisplayForm ? <TaskForm
+            onSubmit={ this.onSubmit }
+            onCloseForm={ this.onCloseForm }
+            task={ taskEditing }
+            /> : '';
         return (
             <div className="container">
                 <div className="text-center">
@@ -115,9 +151,10 @@ class App extends Component {
                         <Control />
                         {/*List*/}
                         <TaskList
-                            tasks={tasks}
-                            onUpdateStatus={this.onUpdateStatus}
+                            tasks={ tasks }
+                            onUpdateStatus={ this.onUpdateStatus }
                             onDelete={ this.onDelete }
+                            onUpdate={ this.onUpdate }
                         />
                     </div>
                 </div>
