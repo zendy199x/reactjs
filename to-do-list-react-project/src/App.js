@@ -11,11 +11,15 @@ class App extends Component {
         this.state = {
             tasks: [],
             isDisplayForm: false.status,
-            taskEditing: null
+            taskEditing: null,
+            filter: {
+                name: '',
+                status: -1
+            }
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if (localStorage && localStorage.getItem('tasks')) {
             const tasks =  JSON.parse(localStorage.getItem('tasks'));
             this.setState({
@@ -120,8 +124,32 @@ class App extends Component {
         this.onShowForm();
     }
 
+    onFilter = (filterName, filterStatus) => {
+        filterStatus = parseInt(filterStatus);
+        this.setState({
+            filter: {
+                name: filterName.toLowerCase(),
+                status: filterStatus
+            }
+        })
+    }
+
     render() {
-        const { tasks, isDisplayForm, taskEditing } = this.state;
+        let { tasks, isDisplayForm, taskEditing, filter } = this.state;
+        if(filter) {
+            if(filter.name) {
+                tasks = tasks.filter((task) => {
+                    return task.name.toLowerCase().indexOf(filter.name) !== -1
+                })
+            }
+            tasks = tasks.filter((task) => {
+                if(filter.status === -1) {
+                    return task;
+                } else {
+                    return task.status === (filter.status === 1 ? true : false)
+                }
+            })
+        }
         const elmTaskForm = isDisplayForm ? <TaskForm
             onSubmit={ this.onSubmit }
             onCloseForm={ this.onCloseForm }
@@ -155,6 +183,7 @@ class App extends Component {
                             onUpdateStatus={ this.onUpdateStatus }
                             onDelete={ this.onDelete }
                             onUpdate={ this.onUpdate }
+                            onFilter= { this.onFilter }
                         />
                     </div>
                 </div>

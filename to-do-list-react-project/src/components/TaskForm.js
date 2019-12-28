@@ -10,7 +10,7 @@ class TaskForm extends Component {
 		}
 	}
 
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		if(this.props.task) {
 			this.setState({
 				id: this.props.task.id,
@@ -20,7 +20,7 @@ class TaskForm extends Component {
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if(nextProps && nextProps.task) {
 			this.setState({
 				id: nextProps.task.id,
