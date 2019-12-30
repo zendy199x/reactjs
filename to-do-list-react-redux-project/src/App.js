@@ -164,7 +164,6 @@ class App extends Component {
                             sortValue={sortValue}
                         />
                         <TaskList
-                            tasks={tasks}
                             onUpdateStatus={this.onUpdateStatus}
                             onDeleteTask={this.onDeleteTask}
                             filterName={filterName}
