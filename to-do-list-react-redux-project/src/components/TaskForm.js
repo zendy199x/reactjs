@@ -8,7 +8,7 @@ class TaskForm extends Component {
         this.state = {};
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if(this.props.itemEditing && this.props.itemEditing.id !== null){
             this.setState({
                 id : this.props.itemEditing.id,
@@ -20,7 +20,7 @@ class TaskForm extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps && nextProps.itemEditing){
             this.setState({
                 id : nextProps.itemEditing.id,
@@ -57,7 +57,7 @@ class TaskForm extends Component {
     }
 
     onExitForm = () => {
-        this.props.onExitForm();
+        this.props.onCloseForm();
     }
 
     render() {
@@ -119,6 +119,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onAddTask: (task) => {
             dispatch(actions.addTask(task));
+        },
+        onCloseForm: () => {
+            dispatch(actions.closeForm())
         }
     }
 }
