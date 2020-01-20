@@ -19,16 +19,6 @@ class App extends Component {
         };
     }
 
-    onUpdateStatus = (id) => {
-        var tasks = this.state.tasks;
-        var index = findIndex(tasks, { id : id });
-        tasks[index].status = !tasks[index].status;
-        this.setState({
-            tasks : tasks
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
     onToggleForm = () => {
         this.props.onToggleForm();
     }
@@ -113,7 +103,6 @@ class App extends Component {
                             sortValue={sortValue}
                         />
                         <TaskList
-                            onUpdateStatus={this.onUpdateStatus}
                             onDeleteTask={this.onDeleteTask}
                             filterName={filterName}
                             filterStatus={filterStatus}
