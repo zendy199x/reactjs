@@ -3,7 +3,6 @@ import './App.css';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import TaskControl from './components/TaskControl';
-import { findIndex, remove } from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from './actions/index';
 class App extends Component {
@@ -21,15 +20,6 @@ class App extends Component {
 
     onToggleForm = () => {
         this.props.onToggleForm();
-    }
-
-    onDeleteTask = (id) => {
-        var tasks = this.state.tasks;
-        remove(tasks, { id : id });
-        this.setState({
-            tasks : tasks
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
     onSearch = (keyword) => {
@@ -103,7 +93,6 @@ class App extends Component {
                             sortValue={sortValue}
                         />
                         <TaskList
-                            onDeleteTask={this.onDeleteTask}
                             filterName={filterName}
                             filterStatus={filterStatus}
                             onFilter={this.onFilter}

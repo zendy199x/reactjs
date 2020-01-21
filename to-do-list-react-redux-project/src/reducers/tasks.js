@@ -5,46 +5,53 @@ const s4 = () => {
 }
 
 const randomID = () => {
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + this.s4() + this.s4() + this.s4();
 }
 
 const findIndex = (tasks, id) => {
-    var result = -1;
+    let result = -1;
     tasks.forEach((task, index) => {
-        if(task.id === id){
+        if(task.id === id) {
             result = index;
         }
     });
     return result;
 }
 
-const data = JSON.parse(localStorage.getItem("tasks"))
+const data = JSON.parse(localStorage.getItem('tasks'));
 const initialState = data ? data : [];
-
 const myReducer = (state = initialState, action) => {
-    switch(action.type) {
+    let id = '';
+    let index = -1;
+    switch(action.type){
         case types.LIST_ALL:
             return state;
         case types.ADD_TASK:
             const newTask = {
-                id: randomID(),
-                name: action.task.name,
+                id : randomID(),
+                name : action.task.name,
                 status: action.task.status === 'true' ? true : false
             }
             state.push(newTask);
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
         case types.UPDATE_STATUS_TASK:
-            const id = action.id;
-            const index = findIndex(state, id);
+            id = action.id;
+            index = findIndex(state, id);
             state[index] = {
                 ...state[index],
-                status : !state[index].status
-            };
+                status : !state.status
+            }
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
-        default: return state;
+        case types.DELETE_TASK:
+            id = action.id;
+            index = findIndex(state, id);
+            state.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(state));
+            return[...state];
+        default : return state;
     }
-}
+};
 
 export default myReducer;
