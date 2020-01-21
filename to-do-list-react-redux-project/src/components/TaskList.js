@@ -32,7 +32,6 @@ class TaskList extends Component {
 					key={task.id}
 					task={task}
 					index={index + 1}
-					onSelectedItem={this.props.onSelectedItem}
 				/>
 			)
 		})
