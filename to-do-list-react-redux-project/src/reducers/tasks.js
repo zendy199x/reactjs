@@ -5,7 +5,7 @@ const s4 = () => {
 }
 
 const randomID = () => {
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + this.s4() + this.s4() + this.s4();
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
 const findIndex = (tasks, id) => {
