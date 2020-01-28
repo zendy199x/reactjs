@@ -12,13 +12,22 @@ class App extends Component {
 			sortBy: "name",
 			sortValue: "asc",
 			filterName: "",
-			filterStatus: "-1",
-			itemEditing: null
+			filterStatus: "-1"
 		}
 	}
 
 	onToggleForm = () => {
-		this.props.onToggleForm()
+		const { itemEditing } = this.props;
+		if (itemEditing && itemEditing.id !== '') {
+			this.props.onOpenForm();
+		} else {
+			this.props.onToggleForm();
+		}
+		this.props.onClearTask({
+			id: '',
+			name: '',
+			status: false
+		})
 	}
 
 	onSearch = keyword => {
@@ -38,13 +47,6 @@ class App extends Component {
 		this.setState({
 			filterName: filterName,
 			filterStatus: filterStatus
-		})
-	}
-
-	onSelectedItem = item => {
-		this.setState({
-			itemEditing: item,
-			isDisplayForm: true
 		})
 	}
 
@@ -121,7 +123,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isDisplayForm: state.isDisplayForm
+		isDisplayForm: state.isDisplayForm,
+		itemEditing: state.itemEditing
 	}
 }
 
@@ -129,7 +132,13 @@ const mapDispatchToProps = (dispatch, props) => {
 	return {
 		onToggleForm: () => {
 			dispatch(actions.toggleForm())
-		}
+		},
+		onClearTask: task => {
+			dispatch(actions.editTask(task))
+		},
+        onOpenForm: () => {
+            dispatch(actions.openForm())
+        }
 	}
 }
 
