@@ -49,13 +49,7 @@ class App extends Component {
 	}
 
 	render() {
-		const {
-			sortBy,
-			sortValue,
-			filterName,
-			filterStatus,
-			itemEditing
-		} = this.state
+		const {sortBy, sortValue, filterName, filterStatus} = this.state
 		const {isDisplayForm} = this.props
 		// tasks = filter(tasks, (task) => {
 		//     return includes(task.name.toLowerCase(), keyword.toLowerCase());
@@ -74,7 +68,7 @@ class App extends Component {
 		//         }
 		//     });
 		// }
-        // tasks = orderBy(tasks, [sortBy], [sortValue]);
+		// tasks = orderBy(tasks, [sortBy], [sortValue]);
 
 		return (
 			<div className="container">
@@ -90,7 +84,7 @@ class App extends Component {
 								: ""
 						}
 					>
-						<TaskForm itemEditing={itemEditing} />
+						<TaskForm />
 					</div>
 					<div
 						className={
@@ -104,7 +98,8 @@ class App extends Component {
 							className="btn btn-primary"
 							onClick={this.onToggleForm}
 						>
-							<span className="fa fa-plus mr-5"></span>Thêm Công Việc
+							<span className="fa fa-plus mr-5"></span>
+							Thêm Công Việc
 						</button>
 						<TaskControl
 							onSearch={this.onSearch}

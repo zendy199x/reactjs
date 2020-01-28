@@ -28,7 +28,7 @@ class TaskForm extends Component {
                 status : nextProps.itemEditing.status
             });
         }else{
-            this.resetState();
+            this.onClear();
         }
     }
 
@@ -46,6 +46,14 @@ class TaskForm extends Component {
         this.props.onAddTask(this.state);
         this.resetState();
         this.onExitForm();
+    }
+
+    onClear = () => {
+        this.setState({
+            id: '',
+            name: '',
+            status: false
+        })
     }
 
     resetState = () => {
@@ -112,7 +120,8 @@ class TaskForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        isDisplayForm: state.isDisplayForm
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing
     }
 }
 

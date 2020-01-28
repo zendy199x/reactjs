@@ -40,7 +40,7 @@ const myReducer = (state = initialState, action) => {
             index = findIndex(state, id);
             state[index] = {
                 ...state[index],
-                status : !state.status
+                status : !state[index].status
             }
             localStorage.setItem('tasks', JSON.stringify(state));
             return [...state];
