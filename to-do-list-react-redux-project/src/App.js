@@ -10,22 +10,20 @@ class App extends Component {
 		super(props)
 		this.state = {
 			sortBy: "name",
-			sortValue: "asc",
-			filterName: "",
-			filterStatus: "-1"
+			sortValue: "asc"
 		}
 	}
 
 	onToggleForm = () => {
-		const { itemEditing } = this.props;
-		if (itemEditing && itemEditing.id !== '') {
-			this.props.onOpenForm();
+		const {itemEditing} = this.props
+		if (itemEditing && itemEditing.id !== "") {
+			this.props.onOpenForm()
 		} else {
-			this.props.onToggleForm();
+			this.props.onToggleForm()
 		}
 		this.props.onClearTask({
-			id: '',
-			name: '',
+			id: "",
+			name: "",
 			status: false
 		})
 	}
@@ -43,33 +41,9 @@ class App extends Component {
 		})
 	}
 
-	onFilter = (filterName, filterStatus) => {
-		this.setState({
-			filterName: filterName,
-			filterStatus: filterStatus
-		})
-	}
-
 	render() {
-		const {sortBy, sortValue, filterName, filterStatus} = this.state
+		const {sortBy, sortValue} = this.state
 		const {isDisplayForm} = this.props
-		// tasks = filter(tasks, (task) => {
-		//     return includes(task.name.toLowerCase(), keyword.toLowerCase());
-		// });
-		// if(filterName){
-		//     tasks = filter(tasks, (task) => {
-		//         return includes(task.name.toLowerCase(), filterName.toLowerCase());
-		//     });
-		// }
-		// if(filterStatus){
-		//     tasks = filter(tasks, (task) => {
-		//         if(filterStatus === '-1' || filterStatus === -1){
-		//             return task;
-		//         }else{
-		//             return task.status === (parseInt(filterStatus, 10) === 1 ? true : false);
-		//         }
-		//     });
-		// }
 		// tasks = orderBy(tasks, [sortBy], [sortValue]);
 
 		return (
@@ -109,11 +83,7 @@ class App extends Component {
 							sortBy={sortBy}
 							sortValue={sortValue}
 						/>
-						<TaskList
-							filterName={filterName}
-							filterStatus={filterStatus}
-							onFilter={this.onFilter}
-						/>
+						<TaskList />
 					</div>
 				</div>
 			</div>
@@ -136,9 +106,9 @@ const mapDispatchToProps = (dispatch, props) => {
 		onClearTask: task => {
 			dispatch(actions.editTask(task))
 		},
-        onOpenForm: () => {
-            dispatch(actions.openForm())
-        }
+		onOpenForm: () => {
+			dispatch(actions.openForm())
+		}
 	}
 }
 
