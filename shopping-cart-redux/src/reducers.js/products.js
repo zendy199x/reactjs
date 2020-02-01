@@ -1,4 +1,4 @@
-var initialState = [
+const initialState = [
     {
         id: 1,
         name: 'iPhone 7 Plus',
