@@ -13,6 +13,18 @@ const initialState = [
             rating: 4
         },
         quantity: 5
+    },
+    {
+        product: {
+            id: 3,
+            name: 'iPhone XS Max',
+            image: 'https://imgs.viettelstore.vn/images/Product/ProductImage/medium/Xs.jpg',
+            description: 'Sản phẩm do Apple Nhật Bản sản xuất',
+            price: 500,
+            inventory: 20,
+            rating: 4
+        },
+        quantity: 8
     }
 ]
 
