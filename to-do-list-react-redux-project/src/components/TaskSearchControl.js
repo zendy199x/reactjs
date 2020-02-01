@@ -17,7 +17,7 @@ class TaskSearchControl extends Component {
 	}
 
 	onSearch = () => {
-		this.props.onSearch(this.state.keyword);
+		this.props.onSearch(this.state.keyword) // dispatch searchTask
 	}
 
 	render() {

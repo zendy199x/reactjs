@@ -5,15 +5,9 @@ import TaskForm from "./components/TaskForm"
 import TaskControl from "./components/TaskControl"
 import {connect} from "react-redux"
 import * as actions from "./actions/index"
-class App extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			sortBy: "name",
-			sortValue: "asc"
-		}
-	}
 
+class App extends Component {
+	// toggle redux
 	onToggleForm = () => {
 		const {itemEditing} = this.props
 		if (itemEditing && itemEditing.id !== "") {
@@ -28,23 +22,8 @@ class App extends Component {
 		})
 	}
 
-	onSearch = keyword => {
-		this.setState({
-			keyword: keyword
-		})
-	}
-
-	onSort = (sortBy, sortValue) => {
-		this.setState({
-			sortBy: sortBy,
-			sortValue: sortValue
-		})
-	}
-
 	render() {
-		const {sortBy, sortValue} = this.state
 		const {isDisplayForm} = this.props
-		// tasks = orderBy(tasks, [sortBy], [sortValue]);
 
 		return (
 			<div className="container">
@@ -77,12 +56,7 @@ class App extends Component {
 							<span className="fa fa-plus mr-5"></span>
 							Thêm Công Việc
 						</button>
-						<TaskControl
-							onSearch={this.onSearch}
-							onSort={this.onSort}
-							sortBy={sortBy}
-							sortValue={sortValue}
-						/>
+						<TaskControl />
 						<TaskList />
 					</div>
 				</div>

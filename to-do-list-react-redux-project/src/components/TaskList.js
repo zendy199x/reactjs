@@ -27,7 +27,8 @@ class TaskList extends Component {
 	}
 
 	render() {
-		let {tasks, filterTable, keyword} = this.props
+		let {tasks, filterTable, keyword, sort} = this.props
+		// filter on table
 		if (filterTable.name) {
 			tasks = tasks.filter(task => {
 				return (
@@ -35,6 +36,7 @@ class TaskList extends Component {
 				)
 			})
 		}
+
 		tasks = tasks.filter(task => {
 			if (filterTable.status === -1) {
 				return task
@@ -43,18 +45,30 @@ class TaskList extends Component {
 			}
 		})
 
-		//search
+		// search
 		tasks = tasks.filter(task => {
-			return (
-				task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
-			)
+			return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
 		})
 
-		console.log(this.props.keyword)
+		// sort
+		if (sort.by === "name") {
+			tasks.sort((a, b) => {
+				if (a.name > b.name) return sort.value
+				else if (a.name < b.name) return -sort.value
+				else return 0
+			})
+		} else {
+			tasks.sort((a, b) => {
+				if (a.status > b.status) return -sort.value
+				else if (a.status < b.status) return sort.value
+				else return 0
+			})
+		}
 
 		const elmTasks = tasks.map((task, index) => {
 			return <TaskItem key={task.id} task={task} index={index + 1} />
 		})
+
 		return (
 			<div className="row mt-15">
 				<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -84,7 +98,7 @@ class TaskList extends Component {
 										className="form-control"
 										name="filterStatus"
 										onChange={this.onChange}
-										value={this.state.filerStatus}
+										value={this.state.filterStatus}
 									>
 										<option value={-1}>Tất Cả</option>
 										<option value={0}>Ẩn</option>
@@ -106,7 +120,8 @@ const mapStateToProps = state => {
 	return {
 		tasks: state.tasks,
 		filterTable: state.filterTable,
-		keyword: state.search
+		keyword: state.search,
+		sort: state.sort
 	}
 }
 
