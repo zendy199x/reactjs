@@ -1,4 +1,5 @@
 import * as Types from '../constants/ActionType'
+import products from '../reducers.js/products'
 
 export const actAddToCart = (product, quantity) => {
     return {
@@ -19,5 +20,13 @@ export const actDeleteProductInCart = (product) => {
     return {
         type: Types.DELETE_PRODUCT_IN_CART,
         product
+    }
+}
+
+export const actUpdateProductInCart = (product, quantity) => {
+    return {
+        type: Types.UPDATE_PRODUCT_IN_CART,
+        product,
+        quantity
     }
 }

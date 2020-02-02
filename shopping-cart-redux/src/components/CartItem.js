@@ -1,10 +1,16 @@
 import React, {Component} from "react"
-import products from "../reducers.js/products"
 import * as Message from "./../constants/Message"
 
-class App extends Component {
+class CartItem extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			quantity: 1
+		}
+	}
 	render() {
 		const {item} = this.props
+		const {quantity} = item.quantity > 0 ? item : this.state
 		return (
 			<tr>
 				<th scope="row">
@@ -21,15 +27,21 @@ class App extends Component {
 				</td>
 				<td>{item.product.price}$</td>
 				<td className="center-on-small-only">
-					<span className="qty">{item.quantity} </span>
+					<span className="qty">{quantity} </span>
 					<div className="btn-group radio-group" data-toggle="buttons">
 						<label
+							onClick={() =>
+								this.onUpdateQuantity(item.product, item.quantity - 1)
+							}
 							className="btn btn-sm btn-primary
                         btn-rounded waves-effect waves-light"
 						>
 							<a>—</a>
 						</label>
 						<label
+							onClick={() =>
+								this.onUpdateQuantity(item.product, item.quantity + 1)
+							}
 							className="btn btn-sm btn-primary
                         btn-rounded waves-effect waves-light"
 						>
@@ -55,7 +67,14 @@ class App extends Component {
 		)
 	}
 
-	onDelete(product) {
+	onUpdateQuantity = (product, quantity) => {
+		if (quantity > 0) {
+			const { onUpdateProductInCart} = this.props;
+            onUpdateProductInCart(product, quantity);
+		}
+	}
+
+	onDelete = product => {
 		const {onDeleteProductInCart, onChangeMessage} = this.props
 		onDeleteProductInCart(product)
 		onChangeMessage(Message.MSG_DELETE_PRODUCT_IN_CART_SUCCESS)
@@ -66,4 +85,4 @@ class App extends Component {
 	}
 }
 
-export default App
+export default CartItem
