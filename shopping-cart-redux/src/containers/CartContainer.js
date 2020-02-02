@@ -9,7 +9,6 @@ import * as Message from "./../constants/Message"
 class CartContainer extends Component {
 	render() {
 		const {cart} = this.props
-		console.log(cart)
 		return (
 			<Cart>
 				{this.showCartItem(cart)} {this.showTotalAmount(cart)}
