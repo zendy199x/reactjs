@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import products from "../reducers.js/products"
+import * as Message from "./../constants/Message"
 
 class App extends Component {
 	render() {
@@ -55,9 +56,9 @@ class App extends Component {
 	}
 
 	onDelete(product) {
-		console.log(product)
-		const {onDeleteProductInCart} = this.props
+		const {onDeleteProductInCart, onChangeMessage} = this.props
 		onDeleteProductInCart(product)
+		onChangeMessage(Message.MSG_DELETE_PRODUCT_IN_CART_SUCCESS)
 	}
 
 	showSubTotal = (price, quantity) => {
