@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import "./App.css"
-import {BrowserRouter as Router, Route, Link} from "react-router-dom"
+import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom"
 import Home from "./components/Home"
 import About from "./components/About"
 import Contact from "./components/Contact"
@@ -14,19 +14,47 @@ class App extends Component {
 					<nav className="navbar navbar-inverse">
 						<ul className="nav navbar-nav">
 							<li>
-								<Link to="/" className="my-link">
+								<NavLink
+									// activeStyle={{
+									// 	backgroundColor: "yellow",
+									// 	color: "red",
+									// 	borderRadius: 4
+									// }}
+									activeClassName="active"
+									to="/"
+									exact
+									className="my-link"
+								>
 									Trang chủ
-								</Link>
+								</NavLink>
 							</li>
 							<li>
-								<Link to="/about" className="my-link">
+								<NavLink
+									// activeStyle={{
+									// 	backgroundColor: "yellow",
+									// 	color: "red",
+									// 	borderRadius: 4
+									// }}
+									activeClassName="active"
+									to="/about"
+									className="my-link"
+								>
 									Giới thiệu
-								</Link>
+								</NavLink>
 							</li>
 							<li>
-								<Link to="/contact" className="my-link">
+								<NavLink
+									// activeStyle={{
+									// 	backgroundColor: "yellow",
+									// 	color: "red",
+									// 	borderRadius: 4
+									// }}
+									activeClassName="active"
+									to="/contact"
+									className="my-link"
+								>
 									Liên hệ
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 					</nav>
