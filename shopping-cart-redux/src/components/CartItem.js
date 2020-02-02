@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import products from "../reducers.js/products"
 
 class App extends Component {
 	render() {
@@ -44,6 +45,7 @@ class App extends Component {
 						data-placement="top"
 						title=""
 						data-original-title="Remove item"
+						onClick={() => this.onDelete(item.product)}
 					>
 						X
 					</button>
@@ -52,10 +54,15 @@ class App extends Component {
 		)
 	}
 
+	onDelete(product) {
+		console.log(product)
+		const {onDeleteProductInCart} = this.props
+		onDeleteProductInCart(product)
+	}
+
 	showSubTotal = (price, quantity) => {
 		return price * quantity
 	}
-
 }
 
 export default App
