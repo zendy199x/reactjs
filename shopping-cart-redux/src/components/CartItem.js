@@ -3,7 +3,6 @@ import React, {Component} from "react"
 class App extends Component {
 	render() {
 		const {item} = this.props
-		console.log(item)
 		return (
 			<tr>
 				<th scope="row">
