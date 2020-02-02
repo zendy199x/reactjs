@@ -5,57 +5,44 @@ import Home from "./components/Home"
 import About from "./components/About"
 import Contact from "./components/Contact"
 
+const MenuLink = ({label, to, activeOnlyWhenExact}) => {
+	return (
+		<Route
+			path={to}
+			exact={activeOnlyWhenExact}
+			children={({match}) => {
+				const active = match ? "active" : ""
+				return (
+					<li className={active}>
+						<Link to={to} className="my-link">
+							{label}
+						</Link>
+					</li>
+				)
+			}}
+		/>
+	)
+}
+
 class App extends Component {
 	render() {
 		return (
 			<Router>
 				<div className="App">
 					{/* Menu */}
-					<nav className="navbar navbar-inverse">
+					<nav className="navbar navbar-default">
 						<ul className="nav navbar-nav">
-							<li>
-								<NavLink
-									// activeStyle={{
-									// 	backgroundColor: "yellow",
-									// 	color: "red",
-									// 	borderRadius: 4
-									// }}
-									activeClassName="active"
-									to="/"
-									exact
-									className="my-link"
-								>
-									Trang chủ
-								</NavLink>
-							</li>
-							<li>
-								<NavLink
-									// activeStyle={{
-									// 	backgroundColor: "yellow",
-									// 	color: "red",
-									// 	borderRadius: 4
-									// }}
-									activeClassName="active"
-									to="/about"
-									className="my-link"
-								>
-									Giới thiệu
-								</NavLink>
-							</li>
-							<li>
-								<NavLink
-									// activeStyle={{
-									// 	backgroundColor: "yellow",
-									// 	color: "red",
-									// 	borderRadius: 4
-									// }}
-									activeClassName="active"
-									to="/contact"
-									className="my-link"
-								>
-									Liên hệ
-								</NavLink>
-							</li>
+							<MenuLink label="Trang chủ" to="/" activeOnlyWhenExact={true} />
+							<MenuLink
+								label="Giới thiệu"
+								to="/about"
+								activeOnlyWhenExact={false}
+							/>
+							<MenuLink
+								label="Liên hệ"
+								to="/contact"
+								activeOnlyWhenExact={false}
+							/>
 						</ul>
 					</nav>
 					{/* Nội dung */}
