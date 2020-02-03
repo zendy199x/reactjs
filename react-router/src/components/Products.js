@@ -38,6 +38,9 @@ class Products extends Component {
 			)
 		})
 
+		const {location} = this.props
+		console.log(location)
+
 		return (
 			<div className="container">
 				<h1>Danh sách sản phẩm</h1>

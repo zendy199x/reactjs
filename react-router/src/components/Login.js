@@ -37,8 +37,14 @@ class Login extends Component {
 		const {txtUsername, txtPassword} = this.state
 		const loggedInUser = localStorage.getItem("user")
 		if (loggedInUser !== null) {
-			return <Redirect to="/products" />
-		}
+            const {location} = this.props
+			return <Redirect to={{
+                pathname: "/products",
+                state: {
+                    from: location
+                }
+            }} />
+        }
 		return (
 			<div className="row">
 				<div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
