@@ -16,6 +16,11 @@ const menus = [
 		name: "Liên hệ",
 		to: "/contact",
 		exact: false
+	},
+	{
+		name: "Sản phẩm",
+		to: "/products",
+		exact: false
 	}
 ]
 
