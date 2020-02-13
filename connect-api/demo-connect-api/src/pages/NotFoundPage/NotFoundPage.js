@@ -7,7 +7,7 @@ class NotFoundPage extends Component {
 				<div className="alert alert-warning">
 					<button
 						type="button"
-						class="close"
+						className="close"
 						data-dismiss="alert"
 						aria-hidden="true"
 					>

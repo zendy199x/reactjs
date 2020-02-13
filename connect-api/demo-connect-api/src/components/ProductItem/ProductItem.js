@@ -1,8 +1,11 @@
 import React, {Component} from "react"
+import {Link} from "react-router-dom"
 
 class ProductItem extends Component {
 	onDelete = id => {
-		if (confirm("Chắc chắn xoá ?")) { //eslint-disable-line
+		// eslint-disable-next-line no-restricted-globals
+		if (confirm("Chắc chắn xoá ?")) {
+			//eslint-disable-line
 			this.props.onDelete(id)
 		}
 	}
@@ -20,9 +23,12 @@ class ProductItem extends Component {
 					<span className={`label label-${statusClass}`}>{statusName}</span>
 				</td>
 				<td>
-					<button type="button" className="btn btn-success mr-10">
+					<Link
+						to={`/product/${product.id}/edit`}
+						className="btn btn-success mr-10"
+					>
 						Sửa
-					</button>
+					</Link>
 					<button
 						type="button"
 						className="btn btn-danger"
