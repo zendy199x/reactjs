@@ -1,28 +1,15 @@
-const initialState = [
-    {
-        id: 1,
-        name: "iPhone 8",
-        price: 400,
-        status: true
-    },
-    {
-        id: 1,
-        name: "iPhone X",
-        price: 700,
-        status: true
-    },
-    {
-        id: 1,
-        name: "iPhone 11 Pro Max",
-        price: 300,
-        status: true
-    }
-];
+import * as Types from "./../constants/ActionTypes"
 
-const products = (state=initialState, action) => {
-    switch(action.type) {
-        default: return [...state];
-    }
+const initialState = []
+
+const products = (state = initialState, action) => {
+	switch (action.type) {
+		case Types.FETCH_PRODUCTS:
+			state = action.products
+			return [...state]
+		default:
+			return [...state]
+	}
 }
 
 export default products

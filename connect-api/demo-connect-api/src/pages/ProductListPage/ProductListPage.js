@@ -4,6 +4,7 @@ import ProductList from "./../../components/ProductList/ProductList"
 import ProductItem from "./../../components/ProductItem/ProductItem"
 import {connect} from "react-redux"
 import callApi from "./../../utils/apiCaller"
+import {acFetchProductsRequest} from "./../../actions/index"
 
 class ProductListPage extends Component {
 	constructor(props) {
@@ -14,11 +15,7 @@ class ProductListPage extends Component {
 	}
 
 	UNSAFE_componentDidMount() {
-		callApi("products", "GET", null).then(res => {
-			this.setState({
-				products: res.data
-			})
-		})
+		this.props.fetchAllProducts()
 	}
 
 	findIndex = (products, id) => {
@@ -84,4 +81,12 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, null)(ProductListPage)
+const mapDispatchToProps = (dispatch, props) => {
+	return {
+		fetchAllProducts: products => {
+			dispatch(acFetchProductsRequest())
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListPage)
