@@ -3,15 +3,14 @@ import {Link} from "react-router-dom"
 
 class ProductItem extends Component {
 	onDelete = id => {
-		// eslint-disable-next-line no-restricted-globals
-		if (confirm("Chắc chắn xoá ?")) {
-			//eslint-disable-line
+		if (confirm(`Bạn chắc chắn muốn xoá ?`)) { //eslint-disable-line
 			this.props.onDelete(id)
 		}
 	}
+
 	render() {
 		const {product, index} = this.props
-		const statusName = product.status ? "Còn hàng" : "Hết hàng"
+		const statusName = product.status ? "Còn Hàng" : "Hết Hàng"
 		const statusClass = product.status ? "warning" : "default"
 		return (
 			<tr>
@@ -34,7 +33,7 @@ class ProductItem extends Component {
 						className="btn btn-danger"
 						onClick={() => this.onDelete(product.id)}
 					>
-						Xóa
+						Xoá
 					</button>
 				</td>
 			</tr>

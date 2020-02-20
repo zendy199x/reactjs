@@ -1,17 +1,17 @@
-import * as Types from "./../constants/ActionTypes"
-import callApi from "./../utils/apiCaller"
+import * as Types from './../constants/ActionTypes';
+import callApi from './../utils/apiCaller';
 
-export const acFetchProductsRequest = () => {
-	return dispatch => {
-		return callApi(`products`, "GET", null).then(res => {
-			dispatch(acFetchProducts(res.data))
-		})
-	}
+export const actFetchProductsRequest = () => {
+    return (dispatch) => {
+        return callApi('products', 'GET', null).then(res => {
+            dispatch(actFetchProducts(res.data))
+        })
+    }
 }
 
-export const acFetchProducts = products => {
-	return {
-		type: Types.FETCH_PRODUCTS,
-		products
-	}
+export const actFetchProducts = (products) => {
+    return {
+        type : Types.FETCH_PRODUCTS,
+        products
+    }
 }

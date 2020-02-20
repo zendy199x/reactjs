@@ -1,10 +1,10 @@
 import React, {Component} from "react"
-import {Link} from "react-router-dom"
 import ProductList from "./../../components/ProductList/ProductList"
 import ProductItem from "./../../components/ProductItem/ProductItem"
 import {connect} from "react-redux"
 import callApi from "./../../utils/apiCaller"
-import {acFetchProductsRequest} from "./../../actions/index"
+import {Link} from "react-router-dom"
+import {actFetchProductsRequest} from "./../../actions/index"
 
 class ProductListPage extends Component {
 	constructor(props) {
@@ -14,8 +14,31 @@ class ProductListPage extends Component {
 		}
 	}
 
-	UNSAFE_componentDidMount() {
+	componentDidMount() {
+		//chạy sau khi hàm render được chạy lần đầu tiên
 		this.props.fetchAllProducts()
+		// callApi('products', 'GET', null).then(res => {
+		//     this.props.fetchAllProducts(res.data);
+		// this.setState({
+		//     products: res.data
+		// })
+		// });
+	}
+
+	onDelete = id => {
+		const {products} = this.state
+		callApi(`products/${id}`, "DELETE", null).then(res => {
+			if (res.status === 200) {
+				//OK
+				const index = this.findIndex(products, id)
+				if (index !== -1) {
+					products.splice(index, 1)
+					this.setState({
+						products: products
+					})
+				}
+			}
+		})
 	}
 
 	findIndex = (products, id) => {
@@ -28,24 +51,9 @@ class ProductListPage extends Component {
 		return result
 	}
 
-	onDelete = id => {
-		const {products} = this.state
-		callApi(`products/${id}`, "DELETE", null).then(res => {
-			if (res.status === 200) {
-				const index = this.findIndex(products, id)
-				if (index !== -1) {
-					products.splice(index, 1)
-					this.setState({
-						products: products
-					})
-				}
-			}
-		})
-	}
-
 	render() {
-		// var { products } = this.props;
-		const {products} = this.state
+		const {products} = this.props
+		// const { products } = this.state;
 
 		return (
 			<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -58,7 +66,7 @@ class ProductListPage extends Component {
 	}
 
 	showProducts = products => {
-		var result = null
+		let result = null
 		if (products.length > 0) {
 			result = products.map((product, index) => {
 				return (
@@ -83,8 +91,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
 	return {
-		fetchAllProducts: products => {
-			dispatch(acFetchProductsRequest())
+		fetchAllProducts: () => {
+			dispatch(actFetchProductsRequest())
 		}
 	}
 }
