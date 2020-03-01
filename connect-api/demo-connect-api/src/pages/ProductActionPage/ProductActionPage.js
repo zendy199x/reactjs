@@ -3,6 +3,8 @@ import React, {Component} from "react"
 // import ProductItem from './../../components/ProductItem/ProductItem';
 import callApi from "./../../utils/apiCaller"
 import {Link} from "react-router-dom"
+import {actAddProductRequest} from "./../../actions/index"
+import {connect} from "react-redux"
 
 class ProductActionPage extends Component {
 	constructor(props) {
@@ -43,6 +45,12 @@ class ProductActionPage extends Component {
 		e.preventDefault()
 		const {id, txtName, txtPrice, chkbStatus} = this.state
 		const {history} = this.props
+		const product = {
+			id: id,
+			name: txtName,
+			price: txtPrice,
+			status: chkbStatus
+		}
 		if (id) {
 			//http://localhost:3000/products/:id => HTTP METHOD: PUT
 			callApi(`products/${id}`, "PUT", {
@@ -53,14 +61,8 @@ class ProductActionPage extends Component {
 				history.goBack()
 			})
 		} else {
-			callApi("products", "POST", {
-				name: txtName,
-				price: txtPrice,
-				status: chkbStatus
-			}).then(res => {
-				history.goBack() //quay lại trang trước đó
-				// history.push("/"); đi tới trang nào
-			})
+			this.props.onAddProduct(product)
+			history.goBack()
 		}
 	}
 
@@ -70,7 +72,7 @@ class ProductActionPage extends Component {
 			<div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 				<form onSubmit={this.onSave}>
 					<div className="form-group">
-						<label for="">Tên sản phẩm</label>
+						<label htmlFor="">Tên sản phẩm</label>
 						<input
 							type="text"
 							className="form-control"
@@ -80,7 +82,7 @@ class ProductActionPage extends Component {
 						/>
 					</div>
 					<div className="form-group">
-						<label for="">Giá sản phẩm</label>
+						<label htmlFor="">Giá sản phẩm</label>
 						<input
 							type="number"
 							className="form-control"
@@ -90,7 +92,7 @@ class ProductActionPage extends Component {
 						/>
 					</div>
 					<div className="form-group">
-						<label for="">Trạng thái</label>
+						<label htmlFor="">Trạng thái</label>
 					</div>
 					<div className="checkbox">
 						<label>
@@ -116,4 +118,12 @@ class ProductActionPage extends Component {
 	}
 }
 
-export default ProductActionPage
+const mapDispatchToProps = (dispatch, props) => {
+	return {
+		onAddProduct: product => {
+			dispatch(actAddProductRequest(product))
+		}
+	}
+}
+
+export default connect(null, mapDispatchToProps)(ProductActionPage)
