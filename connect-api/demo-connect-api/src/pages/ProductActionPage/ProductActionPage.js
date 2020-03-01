@@ -3,7 +3,7 @@ import React, {Component} from "react"
 // import ProductItem from './../../components/ProductItem/ProductItem';
 import callApi from "./../../utils/apiCaller"
 import {Link} from "react-router-dom"
-import {actAddProductRequest} from "./../../actions/index"
+import {actAddProductRequest, actGetProductRequest} from "./../../actions/index"
 import {connect} from "react-redux"
 
 class ProductActionPage extends Component {
@@ -20,16 +20,8 @@ class ProductActionPage extends Component {
 	componentDidMount() {
 		const {match} = this.props
 		if (match) {
-			const id = match.params.id
-			callApi(`products/${id}`, "GET", null).then(res => {
-				const data = res.data
-				this.setState({
-					id: data.id,
-					txtName: data.name,
-					txtPrice: data.price,
-					chkbStatus: data.status
-				})
-			})
+            const id = match.params.id
+            this.props.onEditProduct(id)
 		}
 	}
 
@@ -122,6 +114,9 @@ const mapDispatchToProps = (dispatch, props) => {
 	return {
 		onAddProduct: product => {
 			dispatch(actAddProductRequest(product))
+		},
+		onEditProduct: id => {
+			dispatch(actGetProductRequest(id))
 		}
 	}
 }
