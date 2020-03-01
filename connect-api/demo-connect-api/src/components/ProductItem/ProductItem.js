@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 class ProductItem extends Component {
 	onDelete = id => {
-		if (confirm(`Bạn chắc chắn muốn xoá ?`)) { //eslint-disable-line
+		if (confirm(`Bạn chắc chắn muốn xoá ?`)) {//eslint-disable-line
 			this.props.onDelete(id)
 		}
 	}

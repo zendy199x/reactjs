@@ -1,13 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { createStore, compose, applyMiddleware } from 'redux';
-import appReducers from './reducers/index';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-
+import React from "react"
+import ReactDOM from "react-dom"
+import "./index.css"
+import App from "./App"
+import * as serviceWorker from "./serviceWorker"
+import {createStore, compose, applyMiddleware} from "redux"
+import appReducers from "./reducers/index"
+import {Provider} from "react-redux"
+import thunk from "redux-thunk"
 
 // const store = createStore(
 //     appReducers,
@@ -15,18 +14,18 @@ import thunk from 'redux-thunk';
 //     applyMiddleware(thunk)
 // );
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-    appReducers, /* reducer */
-    composeEnhancer(
-        applyMiddleware(thunk), /* enhancer(middleware) */
-    )
-);
+	appReducers /* reducer */,
+	composeEnhancer(applyMiddleware(thunk) /* enhancer(middleware) */)
+)
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>, document.getElementById('root'));
-    
-serviceWorker.unregister();
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById("root")
+)
+
+serviceWorker.unregister()
