@@ -1,12 +1,13 @@
-import React, {Component} from "react"
-import {withStyles} from "@material-ui/core"
-import styles from "./styles"
+import { withStyles } from "@material-ui/core"
 import Button from "@material-ui/core/Button"
-import AddIcon from "@material-ui/icons/Add"
 import Grid from "@material-ui/core/Grid"
-import {STATUSES} from "./../../constains"
-import TaskList from "./../../components/TaskList"
+import AddIcon from "@material-ui/icons/Add"
+import PropTypes from "prop-types"
+import React, { Component } from "react"
 import TaskForm from "../../components/TaskForm"
+import TaskList from "./../../components/TaskList"
+import { STATUSES } from "./../../constains"
+import styles from "./styles"
 
 const listTask = [
 	{
@@ -88,6 +89,10 @@ class Taskboard extends Component {
 			</div>
 		)
 	}
+}
+
+Taskboard.propsTypes = {
+	classes: PropTypes.object
 }
 
 export default withStyles(styles)(Taskboard)
