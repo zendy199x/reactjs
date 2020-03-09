@@ -64,20 +64,23 @@ class Taskboard extends Component {
 	}
 
 	renderForm() {
-		const {open} = this.state;
+		const {open} = this.state
 
 		let xhtml = null
-		xhtml = (
-			<TaskForm open={open} onClose={this.handleClose} />
-		)
-		return xhtml;
+		xhtml = <TaskForm open={open} onClose={this.handleClose} />
+		return xhtml
 	}
 
 	render() {
 		const {classes} = this.props
 		return (
 			<div className={classes.taskboard}>
-				<Button variant="contained" color="primary" className={classes.button} onClick={this.openForm}>
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					onClick={this.openForm}
+				>
 					<AddIcon /> Thêm mới công việc
 				</Button>
 				{this.renderBoard()}

@@ -7,7 +7,7 @@ import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import Fab from "@material-ui/core/Fab"
-import Icon from '@material-ui/core/Icon';
+import Icon from "@material-ui/core/Icon"
 
 class TaskItem extends Component {
 	render() {
@@ -25,18 +25,14 @@ class TaskItem extends Component {
 								{status.label}
 							</Grid>
 						</Grid>
-                        <p>{task.description}</p>
+						<p>{task.description}</p>
 					</CardContent>
 					<CardActions className={classes.cardActions}>
 						<Fab color="primary" aria-label="edit" size="small">
-                            <Icon fontSize="small">
-                                edit_icon
-                            </Icon>
+							<Icon fontSize="small">edit_icon</Icon>
 						</Fab>
-                        <Fab color="secondary" aria-label="edit" size="small">
-                            <Icon fontSize="small">
-                                delete_icon
-                            </Icon>
+						<Fab color="secondary" aria-label="edit" size="small">
+							<Icon fontSize="small">delete_icon</Icon>
 						</Fab>
 					</CardActions>
 				</Card>
