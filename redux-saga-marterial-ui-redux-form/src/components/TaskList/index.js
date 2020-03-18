@@ -1,13 +1,13 @@
-import { withStyles } from "@material-ui/core"
-import Box from "@material-ui/core/Box"
-import Grid from "@material-ui/core/Grid"
-import React, { Component } from "react"
-import TaskItem from "../TaskItem"
-import styles from "./styles"
+import { withStyles } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import React, { Component } from "react";
+import TaskItem from "../TaskItem";
+import styles from "./styles";
 
 class TaskList extends Component {
     render() {
-        const { classes, tasks, status } = this.props
+        const { classes, tasks, status } = this.props;
         return (
             <Grid item md={4} xs={12} key={status.value}>
                 <Box mt={2} mb={2}>
@@ -21,12 +21,12 @@ class TaskList extends Component {
                                 status={status}
                                 key={task.id}
                             />
-                        )
+                        );
                     })}
                 </div>
             </Grid>
-        )
+        );
     }
 }
 
-export default withStyles(styles)(TaskList)
+export default withStyles(styles)(TaskList);

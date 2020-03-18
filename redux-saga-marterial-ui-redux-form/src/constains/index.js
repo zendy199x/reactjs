@@ -11,4 +11,4 @@ export const STATUSES = [
         value: 2,
         label: "COMPLETED"
     }
-]
+];

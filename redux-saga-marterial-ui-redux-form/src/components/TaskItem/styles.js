@@ -4,6 +4,6 @@ const styles = () => ({
         alignItems: "center",
         justifyContent: "flex-end"
     }
-})
+});
 
-export default styles
+export default styles;

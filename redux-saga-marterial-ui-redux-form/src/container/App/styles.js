@@ -8,6 +8,6 @@ const styles = () => ({
         margin: 10,
         backgroundColor: "red"
     }
-})
+});
 
-export default styles
+export default styles;
