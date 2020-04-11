@@ -1,12 +1,15 @@
+import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import TaskForm from "../../components/TaskForm";
+import * as taskActions from "./../../actions/task";
 import TaskList from "./../../components/TaskList";
-import { STATUSES } from "./../../constains";
+import { STATUSES } from "../../constants";
 import styles from "./styles";
 
 const listTask = [
@@ -34,6 +37,12 @@ class Taskboard extends Component {
     state = {
         open: false
     };
+
+    componentDidMount() {
+        const { taskActionsCreators } = this.props;
+        const { fetchListTask } = taskActionsCreators;
+        fetchListTask();
+    }
 
     renderBoard() {
         let xhtml = null;
@@ -96,7 +105,19 @@ class Taskboard extends Component {
 }
 
 Taskboard.propsTypes = {
-    classes: PropTypes.object
+    classes: PropTypes.object,
+    taskActionsCreators: PropTypes.shape({
+        fetchListTask: PropTypes.func
+    })
 };
 
-export default withStyles(styles)(Taskboard);
+const mapStateToProps = null;
+const mapDispatchToProps = dispatch => {
+    return {
+        taskActionsCreators: bindActionCreators(taskActions, dispatch)
+    };
+};
+
+export default withStyles(styles)(
+    connect(mapStateToProps, mapDispatchToProps)(Taskboard)
+);
