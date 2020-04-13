@@ -12,27 +12,6 @@ import TaskList from "./../../components/TaskList";
 import { STATUSES } from "../../constants";
 import styles from "./styles";
 
-const listTask = [
-    {
-        id: 1,
-        title: "Read book",
-        description: "Read Marterial UI book",
-        status: 0
-    },
-    {
-        id: 2,
-        title: "Play football",
-        description: "With my friend",
-        status: 2
-    },
-    {
-        id: 3,
-        title: "Play game",
-        description: "AOV",
-        status: 1
-    }
-];
-
 class Taskboard extends Component {
     state = {
         open: false
@@ -40,11 +19,24 @@ class Taskboard extends Component {
 
     componentDidMount() {
         const { taskActionsCreators } = this.props;
-        const { fetchListTask } = taskActionsCreators;
-        fetchListTask();
+        const { fetchListTaskRequest } = taskActionsCreators;
+        fetchListTaskRequest();
     }
 
+    handleClose = () => {
+        this.setState({
+            open: false
+        });
+    };
+
+    openForm = () => {
+        this.setState({
+            open: true
+        });
+    };
+
     renderBoard() {
+        const { listTask } = this.props;
         let xhtml = null;
         xhtml = (
             <Grid container spacing={2}>
@@ -64,18 +56,6 @@ class Taskboard extends Component {
         );
         return xhtml;
     }
-
-    handleClose = () => {
-        this.setState({
-            open: false
-        });
-    };
-
-    openForm = () => {
-        this.setState({
-            open: true
-        });
-    };
 
     renderForm() {
         const { open } = this.state;
@@ -107,11 +87,17 @@ class Taskboard extends Component {
 Taskboard.propsTypes = {
     classes: PropTypes.object,
     taskActionsCreators: PropTypes.shape({
-        fetchListTask: PropTypes.func
-    })
+        fetchListTaskRequest: PropTypes.func
+    }),
+    listTask: PropTypes.array
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => {
+    return {
+        listTask: state.task.listTask
+    };
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         taskActionsCreators: bindActionCreators(taskActions, dispatch)
