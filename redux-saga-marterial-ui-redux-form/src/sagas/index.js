@@ -1,7 +1,9 @@
-import { fork } from "redux-saga/effects";
+import { fork, take } from "redux-saga/effects";
+import * as taskTypes from "./../constants/task";
 
 function* watchFetchListTaskAction() {
-    yield true;
+    yield take(taskTypes.FETCH_TASK);
+    //==============BLOCK=============//
     console.log("Watching fetch list task");
 }
 
