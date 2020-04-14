@@ -2,6 +2,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+Add json-server - start server:
+
+### `yarn add json-server`
+
+Start server:
+
+### `npx json-server db.json`
+
 In the project directory, you can run:
 
 ### `yarn start`
