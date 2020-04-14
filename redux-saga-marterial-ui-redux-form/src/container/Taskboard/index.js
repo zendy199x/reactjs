@@ -17,11 +17,11 @@ class Taskboard extends Component {
         open: false
     };
 
-    componentDidMount() {
-        const { taskActionsCreators } = this.props;
-        const { fetchListTask } = taskActionsCreators;
-        fetchListTask();
-    }
+    // componentDidMount() {
+    //     const { taskActionsCreators } = this.props;
+    //     const { fetchListTask } = taskActionsCreators;
+    //     fetchListTask();
+    // }
 
     handleClose = () => {
         this.setState({
@@ -65,10 +65,25 @@ class Taskboard extends Component {
         return xhtml;
     }
 
+    loadData = () => {
+        const { taskActionsCreators } = this.props;
+        const { fetchListTask } = taskActionsCreators;
+        fetchListTask();
+    };
+
     render() {
         const { classes } = this.props;
         return (
             <div className={classes.taskboard}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={this.loadData}
+                    style={{ marginRight: 20 }}
+                >
+                    Load Data
+                </Button>
                 <Button
                     variant="contained"
                     color="primary"
